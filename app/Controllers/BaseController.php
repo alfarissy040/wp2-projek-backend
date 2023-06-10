@@ -52,7 +52,9 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
-
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: *");
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         // E.g.: $this->session = \Config\Services::session();
     }
 }

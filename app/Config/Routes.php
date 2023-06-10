@@ -33,6 +33,8 @@ $routes->set404Override();
 // $routes->get('/about', 'Home::about');
 $routes->get('/dashboard', 'DashboardController::index');
 $routes->get('/menus', 'MenuController::index');
+$routes->add('/menus/(:any)/update', 'MenuController::update/$1');
+$routes->add('/menus/(:any)/delete', 'MenuController::delete/$1');
 $routes->get('/menus/popular', 'MenuController::popular');
 $routes->post('/menus/store', 'MenuController::store');
 $routes->post('/order', 'OrderController::order');

@@ -20,6 +20,11 @@ class Menu extends Model
         return $this->db->table($this->table)->getWhere(['id' => $id]);
     }
 
+    public function updateMenu($data, $id)
+    {
+        return $this->db->table($this->table)->where('id', $id)->update($data);
+    }
+
     public function uploadFile($imageFile)
     {
         // Get the uploaded file
