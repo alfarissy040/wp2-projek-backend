@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\History;
+use App\Models\Menu;
 use App\Models\Order;
 use CodeIgniter\I18n\Time;
 use GuzzleHttp\Client;
@@ -11,12 +12,42 @@ use GuzzleHttp\Psr7\Request as Psr7Request;
 
 class OrderController extends BaseController
 {
-    public $orderModel, $historyModel;
+    public $orderModel, $historyModel, $menuModel;
 
     public function __construct()
     {
         $this->orderModel = new Order();
         $this->historyModel = new History();
+        $this->menuModel = new Menu();
+    }
+
+    public function index(){
+        $responseData = [];
+
+        foreach ($this->orderModel->findAll() as $order) {
+            $menuItems = $this->menuModel->getMenuItemsByIds($order['menu_ids']);
+    
+            $menuList = [];
+            foreach ($menuItems as $i => $menuItem) {
+                $menuList[] = [
+                    'id' => $menuItem->id,
+                    'name' => $menuItem->name,
+                    'price' => $menuItem->price,
+                    'image' => $menuItem->image,
+                    'description' => $menuItem->description,
+                    'quantities' => json_decode($order['quantities'])[$i],
+                    'status' => $menuItem->status,
+                ];
+            }
+    
+            $responseData[] = [
+                'code_transaction' => $order['unique_id'],
+                'total_price' => $order['total_amount'],
+                'menu_items' => $menuList,
+            ];
+        }
+    
+        return $this->response->setJSON($responseData);
     }
 
     public function order()

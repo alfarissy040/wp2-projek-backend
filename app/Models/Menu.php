@@ -15,6 +15,14 @@ class Menu extends Model
         return $this->db->table($this->table)->insert($data);
     }
 
+    public function getMenuItemsByIds($ids) {
+        $builder = $this->db->table($this->table);
+        $builder->whereIn('id', json_decode($ids));
+        $query = $builder->get();
+
+        return $query->getResult();
+    }
+
     public function getId($id)
     {
         return $this->db->table($this->table)->getWhere(['id' => $id]);

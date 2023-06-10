@@ -37,6 +37,7 @@ $routes->add('/menus/(:any)/update', 'MenuController::update/$1');
 $routes->add('/menus/(:any)/delete', 'MenuController::delete/$1');
 $routes->get('/menus/popular', 'MenuController::popular');
 $routes->post('/menus/store', 'MenuController::store');
+$routes->get('/orders', 'OrderController::index');
 $routes->post('/order', 'OrderController::order');
 $routes->post('/callback', 'OrderController::callback');
 /*
