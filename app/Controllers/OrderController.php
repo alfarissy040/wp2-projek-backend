@@ -42,6 +42,7 @@ class OrderController extends BaseController
     
             $responseData[] = [
                 'code_transaction' => $order['unique_id'],
+                'status' => $order['status'],
                 'total_price' => $order['total_amount'],
                 'menu_items' => $menuList,
             ];
