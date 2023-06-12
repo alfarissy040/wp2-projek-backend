@@ -44,6 +44,8 @@ class OrderController extends BaseController
                 'code_transaction' => $order['unique_id'],
                 'status' => $order['status'],
                 'total_price' => $order['total_amount'],
+                'created_at' => $order['created_at'],
+                'updated_at' => $order['updated_at'],
                 'menu_items' => $menuList,
             ];
         }
