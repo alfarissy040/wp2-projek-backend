@@ -90,7 +90,8 @@ class OrderController extends BaseController
             'quantities' => json_encode($quantities),
             'unique_id' => $uniqueId,
             'total_amount' => array_sum($total_price),
-            'status' => 0
+            'status' => 0,
+            'created_at' => Time::now('Asia/Jakarta')
         ]);
 
         $body = [
@@ -141,7 +142,7 @@ class OrderController extends BaseController
                 return 'not found';
             }
     
-            $this->orderModel->updateStatusOrder(['status' => true], $this->request->getVar('order_id'));
+            $this->orderModel->updateStatusOrder(['status' => true, 'updated_at' => Time::now('Asia/Jakarta')], $this->request->getVar('order_id'));
         }
     }
 }
